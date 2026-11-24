@@ -1,16 +1,16 @@
 openapi: 3.0.3
 info:
-  title: Whats360 WhatsApp API (draft)
+  title: whats360.live WhatsApp API (draft)
   version: 0.1.0
-  description: 'Draft OpenAPI built from the official Whats360 developer reference.
+  description: 'Draft OpenAPI built from the official whats360.live developer reference.
     Not verified against production. Gaps: recipients body, per-endpoint response
     fields, campaign body beyond name and message_content. Never publish real tokens.'
   contact:
-    name: Whats360
+    name: whats360.live
     url: https://whats360.live
     email: info@whats360.live
 externalDocs:
-  description: Whats360 website
+  description: whats360.live website
   url: https://whats360.live
 servers:
 - url: https://whats360.live/api/v1
