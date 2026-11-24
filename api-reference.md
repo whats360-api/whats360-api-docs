@@ -1,4 +1,4 @@
-# Whats360 API Reference
+# whats360.live API Reference
 
 Base URL: `https://whats360.live/api/v1`
 
