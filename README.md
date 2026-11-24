@@ -17,4 +17,4 @@ Base URL: `https://whats360.live/api/v1`
 ## Status of this documentation
 Derived from the official developer reference inside the whats360.live dashboard. It has not been verified by live calls to production. Treat parameter shapes marked as gaps with care.
 
-WhatsApp: https://wa.me/whats360.live · Direct chat support: https://wa.me/201030741766 · info@whats360.live · Website: https://whats360.live
+WhatsApp: https://wa.me/whats360.live · Direct chat support: https://wa.me/201030741766 · info@whats360.live · Website: https://whats360.live?utm_source=github&utm_medium=repo_readme&utm_campaign=growth30&utm_content=docs-footer
