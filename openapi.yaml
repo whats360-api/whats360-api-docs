@@ -1,0 +1,845 @@
+openapi: 3.0.3
+info:
+  title: Whats360 WhatsApp API (draft)
+  version: 0.1.0
+  description: 'Draft OpenAPI built from the official Whats360 developer reference.
+    Not verified against production. Gaps: recipients body, per-endpoint response
+    fields, campaign body beyond name and message_content. Never publish real tokens.'
+  contact:
+    name: Whats360
+    url: https://whats360.live
+    email: info@whats360.live
+externalDocs:
+  description: Whats360 website
+  url: https://whats360.live
+servers:
+- url: https://whats360.live/api/v1
+security:
+- tokenQuery: []
+tags:
+- name: Messages
+- name: Devices
+- name: Campaigns
+paths:
+  /send-text:
+    get:
+      tags:
+      - Messages
+      summary: Send text message
+      operationId: get_send_text
+      parameters:
+      - $ref: '#/components/parameters/token'
+      - name: instance_id
+        in: query
+        required: true
+        description: Device ID (a connected WhatsApp number).
+        schema:
+          type: string
+      - name: jid
+        in: query
+        required: true
+        description: WhatsApp chat ID, e.g. 201234567890@s.whatsapp.net.
+        schema:
+          type: string
+      - name: msg
+        in: query
+        required: true
+        description: Message text.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success envelope. Fields inside `response` are not documented
+            per endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: 'Error. HTTP codes documented: 400, 401, 403, 404, 463 (WhatsApp
+            restriction), 500.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /send-image:
+    get:
+      tags:
+      - Messages
+      summary: Send image
+      operationId: get_send_image
+      parameters:
+      - $ref: '#/components/parameters/token'
+      - name: instance_id
+        in: query
+        required: true
+        description: Device ID (a connected WhatsApp number).
+        schema:
+          type: string
+      - name: jid
+        in: query
+        required: true
+        description: WhatsApp chat ID, e.g. 201234567890@s.whatsapp.net.
+        schema:
+          type: string
+      - name: imageurl
+        in: query
+        required: true
+        description: Direct public image URL.
+        schema:
+          type: string
+      - name: caption
+        in: query
+        required: false
+        description: Optional caption.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success envelope. Fields inside `response` are not documented
+            per endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: 'Error. HTTP codes documented: 400, 401, 403, 404, 463 (WhatsApp
+            restriction), 500.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /send-video:
+    get:
+      tags:
+      - Messages
+      summary: Send video
+      operationId: get_send_video
+      parameters:
+      - $ref: '#/components/parameters/token'
+      - name: instance_id
+        in: query
+        required: true
+        description: Device ID (a connected WhatsApp number).
+        schema:
+          type: string
+      - name: jid
+        in: query
+        required: true
+        description: WhatsApp chat ID, e.g. 201234567890@s.whatsapp.net.
+        schema:
+          type: string
+      - name: videourl
+        in: query
+        required: true
+        description: Direct public video URL.
+        schema:
+          type: string
+      - name: caption
+        in: query
+        required: false
+        description: Optional caption.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success envelope. Fields inside `response` are not documented
+            per endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: 'Error. HTTP codes documented: 400, 401, 403, 404, 463 (WhatsApp
+            restriction), 500.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /send-audio:
+    get:
+      tags:
+      - Messages
+      summary: Send audio
+      operationId: get_send_audio
+      parameters:
+      - $ref: '#/components/parameters/token'
+      - name: instance_id
+        in: query
+        required: true
+        description: Device ID (a connected WhatsApp number).
+        schema:
+          type: string
+      - name: jid
+        in: query
+        required: true
+        description: WhatsApp chat ID, e.g. 201234567890@s.whatsapp.net.
+        schema:
+          type: string
+      - name: audiourl
+        in: query
+        required: true
+        description: Direct public audio URL.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success envelope. Fields inside `response` are not documented
+            per endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: 'Error. HTTP codes documented: 400, 401, 403, 404, 463 (WhatsApp
+            restriction), 500.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /send-doc:
+    get:
+      tags:
+      - Messages
+      summary: Send document
+      operationId: get_send_doc
+      parameters:
+      - $ref: '#/components/parameters/token'
+      - name: instance_id
+        in: query
+        required: true
+        description: Device ID (a connected WhatsApp number).
+        schema:
+          type: string
+      - name: jid
+        in: query
+        required: true
+        description: WhatsApp chat ID, e.g. 201234567890@s.whatsapp.net.
+        schema:
+          type: string
+      - name: docurl
+        in: query
+        required: true
+        description: Direct public document URL.
+        schema:
+          type: string
+      - name: caption
+        in: query
+        required: false
+        description: Optional caption.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success envelope. Fields inside `response` are not documented
+            per endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: 'Error. HTTP codes documented: 400, 401, 403, 404, 463 (WhatsApp
+            restriction), 500.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /instances:
+    get:
+      tags:
+      - Devices
+      summary: List devices
+      operationId: get_instances
+      parameters:
+      - $ref: '#/components/parameters/token'
+      responses:
+        '200':
+          description: Success envelope. Fields inside `response` are not documented
+            per endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: 'Error. HTTP codes documented: 400, 401, 403, 404, 463 (WhatsApp
+            restriction), 500.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /instances/create:
+    get:
+      tags:
+      - Devices
+      summary: Create device
+      operationId: get_instances_create
+      parameters:
+      - $ref: '#/components/parameters/token'
+      - name: id
+        in: query
+        required: true
+        description: New device ID.
+        schema:
+          type: string
+      - name: name
+        in: query
+        required: false
+        description: Optional device name.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success envelope. Fields inside `response` are not documented
+            per endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: 'Error. HTTP codes documented: 400, 401, 403, 404, 463 (WhatsApp
+            restriction), 500.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /instances/connect:
+    get:
+      tags:
+      - Devices
+      summary: Connect device
+      operationId: get_instances_connect
+      parameters:
+      - $ref: '#/components/parameters/token'
+      - name: instance_id
+        in: query
+        required: true
+        description: Device ID (a connected WhatsApp number).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success envelope. Fields inside `response` are not documented
+            per endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: 'Error. HTTP codes documented: 400, 401, 403, 404, 463 (WhatsApp
+            restriction), 500.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /instances/disconnect:
+    get:
+      tags:
+      - Devices
+      summary: Disconnect device (changes device state)
+      operationId: get_instances_disconnect
+      parameters:
+      - $ref: '#/components/parameters/token'
+      - name: instance_id
+        in: query
+        required: true
+        description: Device ID (a connected WhatsApp number).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success envelope. Fields inside `response` are not documented
+            per endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: 'Error. HTTP codes documented: 400, 401, 403, 404, 463 (WhatsApp
+            restriction), 500.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /instances/status:
+    get:
+      tags:
+      - Devices
+      summary: Device status
+      operationId: get_instances_status
+      parameters:
+      - $ref: '#/components/parameters/token'
+      - name: instance_id
+        in: query
+        required: true
+        description: Device ID (a connected WhatsApp number).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success envelope. Fields inside `response` are not documented
+            per endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: 'Error. HTTP codes documented: 400, 401, 403, 404, 463 (WhatsApp
+            restriction), 500.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /instances/qr:
+    get:
+      tags:
+      - Devices
+      summary: QR code (JSON)
+      operationId: get_instances_qr
+      parameters:
+      - $ref: '#/components/parameters/token'
+      - name: instance_id
+        in: query
+        required: true
+        description: Device ID (a connected WhatsApp number).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success envelope. Fields inside `response` are not documented
+            per endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: 'Error. HTTP codes documented: 400, 401, 403, 404, 463 (WhatsApp
+            restriction), 500.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /instances/qr-page:
+    get:
+      tags:
+      - Devices
+      summary: Interactive QR page (open in a browser)
+      operationId: get_instances_qr_page
+      parameters:
+      - $ref: '#/components/parameters/token'
+      - name: instance_id
+        in: query
+        required: true
+        description: Device ID (a connected WhatsApp number).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success envelope. Fields inside `response` are not documented
+            per endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: 'Error. HTTP codes documented: 400, 401, 403, 404, 463 (WhatsApp
+            restriction), 500.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /instances/delete:
+    get:
+      tags:
+      - Devices
+      summary: Delete device (destructive)
+      operationId: get_instances_delete
+      parameters:
+      - $ref: '#/components/parameters/token'
+      - name: instance_id
+        in: query
+        required: true
+        description: Device ID (a connected WhatsApp number).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success envelope. Fields inside `response` are not documented
+            per endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: 'Error. HTTP codes documented: 400, 401, 403, 404, 463 (WhatsApp
+            restriction), 500.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /campaigns:
+    get:
+      tags:
+      - Campaigns
+      summary: List campaigns
+      operationId: get_campaigns
+      parameters:
+      - $ref: '#/components/parameters/token'
+      - name: instance_id
+        in: query
+        required: true
+        description: Device ID (a connected WhatsApp number).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success envelope. Fields inside `response` are not documented
+            per endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: 'Error. HTTP codes documented: 400, 401, 403, 404, 463 (WhatsApp
+            restriction), 500.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /campaigns/create:
+    post:
+      tags:
+      - Campaigns
+      summary: Create campaign
+      operationId: post_campaigns_create
+      parameters:
+      - $ref: '#/components/parameters/token'
+      - name: instance_id
+        in: query
+        required: true
+        description: Device ID (a connected WhatsApp number).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success envelope. Fields inside `response` are not documented
+            per endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: 'Error. HTTP codes documented: 400, 401, 403, 404, 463 (WhatsApp
+            restriction), 500.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CampaignCreate'
+            example:
+              name: test
+              message_content: Hello {{name}}
+  /campaigns/recipients:
+    post:
+      tags:
+      - Campaigns
+      summary: Add recipients (body not documented)
+      operationId: post_campaigns_recipients
+      parameters:
+      - $ref: '#/components/parameters/token'
+      - name: instance_id
+        in: query
+        required: true
+        description: Device ID (a connected WhatsApp number).
+        schema:
+          type: string
+      - name: campaign_id
+        in: query
+        required: true
+        description: Campaign ID.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success envelope. Fields inside `response` are not documented
+            per endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: 'Error. HTTP codes documented: 400, 401, 403, 404, 463 (WhatsApp
+            restriction), 500.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        description: Shape not specified in the official source. Check the dashboard
+          Developers page.
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+  /campaigns/start:
+    post:
+      tags:
+      - Campaigns
+      summary: Start campaign
+      operationId: post_campaigns_start
+      parameters:
+      - $ref: '#/components/parameters/token'
+      - name: instance_id
+        in: query
+        required: true
+        description: Device ID (a connected WhatsApp number).
+        schema:
+          type: string
+      - name: campaign_id
+        in: query
+        required: true
+        description: Campaign ID.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success envelope. Fields inside `response` are not documented
+            per endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: 'Error. HTTP codes documented: 400, 401, 403, 404, 463 (WhatsApp
+            restriction), 500.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /campaigns/pause:
+    post:
+      tags:
+      - Campaigns
+      summary: Pause campaign
+      operationId: post_campaigns_pause
+      parameters:
+      - $ref: '#/components/parameters/token'
+      - name: instance_id
+        in: query
+        required: true
+        description: Device ID (a connected WhatsApp number).
+        schema:
+          type: string
+      - name: campaign_id
+        in: query
+        required: true
+        description: Campaign ID.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success envelope. Fields inside `response` are not documented
+            per endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: 'Error. HTTP codes documented: 400, 401, 403, 404, 463 (WhatsApp
+            restriction), 500.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /campaigns/resume:
+    post:
+      tags:
+      - Campaigns
+      summary: Resume campaign
+      operationId: post_campaigns_resume
+      parameters:
+      - $ref: '#/components/parameters/token'
+      - name: instance_id
+        in: query
+        required: true
+        description: Device ID (a connected WhatsApp number).
+        schema:
+          type: string
+      - name: campaign_id
+        in: query
+        required: true
+        description: Campaign ID.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success envelope. Fields inside `response` are not documented
+            per endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: 'Error. HTTP codes documented: 400, 401, 403, 404, 463 (WhatsApp
+            restriction), 500.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /campaigns/stop:
+    post:
+      tags:
+      - Campaigns
+      summary: Stop campaign
+      operationId: post_campaigns_stop
+      parameters:
+      - $ref: '#/components/parameters/token'
+      - name: instance_id
+        in: query
+        required: true
+        description: Device ID (a connected WhatsApp number).
+        schema:
+          type: string
+      - name: campaign_id
+        in: query
+        required: true
+        description: Campaign ID.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success envelope. Fields inside `response` are not documented
+            per endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: 'Error. HTTP codes documented: 400, 401, 403, 404, 463 (WhatsApp
+            restriction), 500.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /campaigns/status:
+    get:
+      tags:
+      - Campaigns
+      summary: Campaign status and stats
+      operationId: get_campaigns_status
+      parameters:
+      - $ref: '#/components/parameters/token'
+      - name: instance_id
+        in: query
+        required: true
+        description: Device ID (a connected WhatsApp number).
+        schema:
+          type: string
+      - name: campaign_id
+        in: query
+        required: true
+        description: Campaign ID.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success envelope. Fields inside `response` are not documented
+            per endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: 'Error. HTTP codes documented: 400, 401, 403, 404, 463 (WhatsApp
+            restriction), 500.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /campaigns/delete:
+    post:
+      tags:
+      - Campaigns
+      summary: Delete campaign
+      operationId: post_campaigns_delete
+      parameters:
+      - $ref: '#/components/parameters/token'
+      - name: instance_id
+        in: query
+        required: true
+        description: Device ID (a connected WhatsApp number).
+        schema:
+          type: string
+      - name: campaign_id
+        in: query
+        required: true
+        description: Campaign ID.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success envelope. Fields inside `response` are not documented
+            per endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: 'Error. HTTP codes documented: 400, 401, 403, 404, 463 (WhatsApp
+            restriction), 500.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    tokenQuery:
+      type: apiKey
+      in: query
+      name: token
+      description: Account API token. Invalid or expired returns 401.
+  parameters:
+    token:
+      name: token
+      in: query
+      required: true
+      description: Account API token (use YOUR_TOKEN placeholder in examples).
+      schema:
+        type: string
+  schemas:
+    Success:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+        response:
+          type: object
+          additionalProperties: true
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+    CampaignCreate:
+      type: object
+      required:
+      - name
+      - message_content
+      properties:
+        name:
+          type: string
+        message_content:
+          type: string
+          description: Message text; supports {{name}}.
