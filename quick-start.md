@@ -1,6 +1,6 @@
 # Quick start
 
-1. Sign in to the Whats360 dashboard and open the Developers (API) page for your token and device ID.
+1. Sign in to the whats360.live dashboard and open the Developers (API) page for your token and device ID.
 2. Connect a test device with `instances/connect` or from the dashboard. Check it with `instances/status`.
 3. Send one text to your own number with `send-text`.
 4. If you get `463`, message that number from your phone once, then retry.
