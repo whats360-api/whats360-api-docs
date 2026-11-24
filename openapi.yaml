@@ -3,8 +3,10 @@ info:
   title: whats360.live WhatsApp API (draft)
   version: 0.1.0
   description: 'Draft OpenAPI built from the official whats360.live developer reference.
-    Not verified against production. Gaps: recipients body, per-endpoint response
-    fields, campaign body beyond name and message_content. Never publish real tokens.'
+    Not verified against production. Campaign create and recipients bodies follow
+    the dashboard developer portal reference (see campaigns.md); per-endpoint response
+    fields, error codes beyond HTTP status, max recipients per request and exact
+    batch_pause_min unit remain undocumented. Never publish real tokens.'
   contact:
     name: whats360.live
     url: https://whats360.live
@@ -547,7 +549,7 @@ paths:
     post:
       tags:
       - Campaigns
-      summary: Add recipients (body not documented)
+      summary: Add recipients
       operationId: post_campaigns_recipients
       parameters:
       - $ref: '#/components/parameters/token'
@@ -580,13 +582,18 @@ paths:
                 $ref: '#/components/schemas/Error'
       requestBody:
         required: true
-        description: Shape not specified in the official source. Check the dashboard
-          Developers page.
         content:
           application/json:
             schema:
-              type: object
-              additionalProperties: true
+              $ref: '#/components/schemas/CampaignRecipients'
+            example:
+              recipients:
+              - phone: '201000000001'
+                name: Ahmed
+              - phone: '201000000002'
+                name: Sara
+                variables:
+                  name: Sara
   /campaigns/start:
     post:
       tags:
@@ -840,6 +847,65 @@ components:
       properties:
         name:
           type: string
+          description: Campaign name.
         message_content:
           type: string
-          description: Message text; supports {{name}}.
+          description: Message text; supports variables such as {{name}}.
+        daily_limit:
+          type: integer
+          description: Daily cap. Max 1000.
+          default: 500
+        min_delay_ms:
+          type: integer
+          description: Minimum delay between messages in ms.
+          default: 3000
+        max_delay_ms:
+          type: integer
+          description: Maximum delay between messages in ms.
+          default: 7000
+        batch_size:
+          type: integer
+          description: Batch size, 1 to 50.
+          default: 20
+        batch_pause_min:
+          type: integer
+          description: Minimum rest between batches (dashboard labels it seconds;
+            unit unconfirmed).
+        send_hour_start:
+          type: integer
+          description: Start hour 0 to 23.
+          default: 8
+        send_hour_end:
+          type: integer
+          description: End hour 0 to 23.
+          default: 22
+        variables:
+          type: object
+          additionalProperties: true
+          description: Global variables as JSON.
+        campaign_type:
+          type: string
+          enum:
+          - promotional
+          - transactional
+    CampaignRecipients:
+      type: object
+      required:
+      - recipients
+      properties:
+        recipients:
+          type: array
+          items:
+            type: object
+            required:
+            - phone
+            properties:
+              phone:
+                type: string
+                description: Recipient number in international format.
+              name:
+                type: string
+              variables:
+                type: object
+                additionalProperties: true
+                description: Per-recipient variables.
