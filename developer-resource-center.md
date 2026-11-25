@@ -1,10 +1,12 @@
 # Whats360 Developer Resource Center
 
-One entry point for integrating with whats360.live: guides, API examples, webhook recipes, error handling and integration scenarios. Every resource links its source repo. Labels used throughout: **documented** (from the platform's developer materials, transcribed into these repos as of Nov 2026; not verified by a live API call), **illustrative** (example code not executed), **tested-locally** (syntax check or unit test with fake fetch). Nothing here has been run against the production API. Product overview and connection model (QR-based, not the official WhatsApp Business API) are also stated in the platform's public https://whats360.live/llms.txt.
+One entry point for integrating with whats360.live: guides, API examples, webhook recipes, error handling and integration scenarios. Every resource links its source repo. Labels used throughout: **documented** (transcribed from the platform's developer materials in Nov 2026; NOT re-verified against the live dashboard since - it was unreachable at publication - and never verified by a live API call; confirm details in the dashboard Developers page before relying on them), **illustrative** (example code not executed), **tested-locally** (syntax check or unit test with fake fetch). Nothing here has been run against the production API. Product overview and connection model (QR-based, not the official WhatsApp Business API) are also stated in the platform's public https://whats360.live/llms.txt.
 
 Questions about integrating: chat with the team on WhatsApp (https://wa.me/201030741766) - it is the first contact channel - or email info@whats360.live.
 
 ## 1. Start here
+
+None of the linked examples has been run against the production API. Validate every step on your own test number first.
 
 1. [Quick start](https://github.com/whats360-api/whats360-api-docs/blob/main/quick-start.md): get your token and device ID from the dashboard Developers (API) page, connect a test device, send one text to your own number, then a small campaign to consenting numbers.
 2. [API reference](https://github.com/whats360-api/whats360-api-docs/blob/main/api-reference.md) (**documented**): every endpoint and parameter.
@@ -15,7 +17,7 @@ Questions about integrating: chat with the team on WhatsApp (https://wa.me/20103
 
 - Every WhatsApp API call takes `token` as a query parameter; most also take `instance_id`. Tokens in URLs can appear in logs: call the API from your server, never from client-side code. Keep secrets in environment variables (`.env.example` in the examples repo).
 - VCash and Email APIs use `Authorization: Bearer` instead; the Email flow starts with `POST /api/auth/login`. Treat tokens as expiring.
-- Media send endpoints need direct, publicly reachable media URLs.
+- Media send endpoints take media by URL; the docs say the URLs must be direct, publicly reachable links - confirm the exact hosting requirements in the dashboard before relying on this.
 
 ## 3. Sending messages
 
