@@ -6,10 +6,10 @@
 | 401 | Invalid or expired token |
 | 403 | Limit reached (messages or requests) |
 | 404 | Device not found |
-| 463 | Number not open for chat (a WhatsApp restriction) |
+| 463 | Recipient-related (per user-supplied notes; unverified) |
 | 500 | Server error |
 
 ## Error 463
-This comes from WhatsApp itself. The recipient has not opened a chat window with you yet, or encryption is not set up. It usually appears with new numbers or numbers you never messaged. Fix per the official reference: send one message from the phone directly to that number, then retry from the CRM or API.
+The notes describe this as a WhatsApp-side restriction related to the recipient, for example that there is no open chat with your number. This explanation is unverified - it has not been confirmed against the live dashboard or API. No workaround is published here: do not message a number to get around a send error, and only message people who agreed to receive messages from you. If you hit this error, check the dashboard docs or contact support.
 
-Error body: `{"success": false, "error": "error message"}`
+Error body: `{"success": false, "error": "error message"}` (shape per user-supplied notes, unverified)
