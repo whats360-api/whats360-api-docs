@@ -61,7 +61,7 @@ The official create example sends a name and message text and accepts a variable
 ```json
 {"name":"test","message_content":"Hello {{name}}"}
 ```
-The recipients body is not specified in the source. Check the dashboard Developers page before using it.
+The recipients body format is documented in [campaigns.md](campaigns.md). Check the dashboard Developers page before relying on it.
 
 ## Response format
 Success:
