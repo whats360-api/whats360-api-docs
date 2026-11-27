@@ -1,5 +1,7 @@
 # Quick start
 
+Status: steps and endpoint names below come from user-supplied technical notes and are not independently verified against the live dashboard or API. Confirm each step in your own dashboard first, and use your own test number.
+
 1. Sign in to the whats360.live dashboard and open the Developers (API) page for your token and device ID.
 2. Connect a test device with `instances/connect` or from the dashboard. Check it with `instances/status`.
 3. Send one text to your own number with `send-text`.
