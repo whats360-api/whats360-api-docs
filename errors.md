@@ -1,6 +1,8 @@
 # Errors
 
-| Code | Meaning |
+Status: user-supplied technical notes, not independently verified against the live dashboard or API. The meanings below come from those notes; confirm each code in your own dashboard docs before building handling around it.
+
+| Code | Meaning (from the notes, unverified) |
 |---|---|
 | 400 | Bad request, for example a missing parameter |
 | 401 | Invalid or expired token |
