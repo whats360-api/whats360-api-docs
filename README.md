@@ -12,7 +12,7 @@ Base URL: `https://whats360.live/api/v1`
 - [Code examples per endpoint](code-examples.md) (PHP, JavaScript, Python, cURL; not run live)
 - [OpenAPI draft](openapi.yaml)
 - [Known gaps](known-gaps.md)
-- Related: [webhooks](https://github.com/whats360-api/whats360-webhooks), [Node.js](https://github.com/whats360-api/whats360-nodejs-sdk), [PHP](https://github.com/whats360-api/whats360-php-sdk), [Postman](https://github.com/whats360-api/whats360-postman-collection)
+- Related: [webhooks](https://github.com/whats360-api/whats360-webhooks), [Node.js](https://github.com/whats360-api/whats360-nodejs-sdk), [PHP](https://github.com/whats360-api/whats360-php-sdk), [Postman](https://github.com/whats360-api/whats360-postman-collection), [code examples (PHP, Node.js, Python)](https://github.com/whats360-api/whats360-developer-examples), [integration examples](https://github.com/whats360-api/whats360-integration-examples), [Email API](https://github.com/whats360-api/whats360-email-api), [VCash API](https://github.com/whats360-api/whats360-vcash-api)
 
 ## Status of this documentation
 Derived from the official developer reference inside the whats360.live dashboard. It has not been verified by live calls to production. Treat parameter shapes marked as gaps with care.
